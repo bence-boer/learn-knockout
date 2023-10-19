@@ -1,7 +1,4 @@
 import ko from 'knockout';
-
-function AppViewModel() {
-  this.name = ko.observable('World');
-}
+import { AppViewModel } from './viewmodel';
 
 ko.applyBindings(new AppViewModel());
