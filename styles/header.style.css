@@ -1,0 +1,78 @@
+.header {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toolbar {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.autofill {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5em;
+
+    box-sizing: border-box;
+    height: 2.4rem;
+    padding: 0 1em;
+
+    border-radius: 0.5rem;
+    border: 2px solid #eee;
+    background-color: transparent;
+    color: #222;
+
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+        background-color: #eee;
+    }
+
+    & label {
+        line-height: 100%;
+    }
+
+    & * {
+        pointer-events: none;
+    }
+}
+
+.add-btn {
+    font-size: 1.5rem;
+    height: 1.6em;
+    padding: 0;
+    text-align: center;
+    aspect-ratio: 1 / 1;
+}
+
+.input-box {
+    font-family: Arial, sans-serif;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    resize: none;
+    height: auto;
+}
+
+.task-list {
+    padding: 1rem 0;
+}
