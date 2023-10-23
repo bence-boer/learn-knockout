@@ -4,13 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TODO app</title>
+  <title>Task Manager</title>
   <script type="module" src="/main.js" defer></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
   <div class="container">
+
     <header class="header">
       <form data-bind="submit: submit_task" class="form">
         <div class="form-header">
@@ -19,15 +20,21 @@
             <button
               type="button"
               class="autofill"
-              data-bind="click: () => fill_task(!fill_task())"
+              data-bind="click: () => autofill(!autofill())"
             >
               <input
                 name="autofill"
                 type="checkbox"
-                data-bind="checked: fill_task"
+                data-bind="checked: autofill"
               >
               <label for="autofill">Autofill</label>
             </button>
+            <select data-bind="
+              options: categories,
+              optionsText: 'name',
+              optionsValue: 'name',
+              value: next_category_name
+            "></select>    
             <button type="submit" class="add-btn">+</button>
           </span>
         </div>
@@ -37,7 +44,7 @@
           name="task_title"
           type="text"
           placeholder="Title"
-          data-bind="value: new_task().title"
+          data-bind="value: next_task().title"
           class="input-box"
           autocomplete="off"
           required
@@ -48,18 +55,35 @@
           name="task_description"
           type="text"
           placeholder="Description"
-          data-bind="value: new_task().description"
+          data-bind="value: next_task().description"
           class="input-box"
           rows="3"
         ></textarea>
       </form>
     </header>
 
+    <div
+      class="categories"
+      data-bind="foreach: {
+        data: categories,
+        as: 'category'
+      }"
+    >
+      <button
+        class="category"
+        data-bind="
+          text: category.name,
+          click: $parent.select_category,
+          css: { 'selected': $parent.selected_category() === category }
+        "
+      ></button>
+    </div>
+
     <ul
       class="task-list"
       data-bind="foreach: {
-        data: task_views,
-        as: 'task_view',
+        data: selected_category().tasks,
+        as: 'task',
         afterRender: appear,
         afterAdd: appear,
         beforeRemove: disappear
@@ -70,33 +94,40 @@
           <div class="task-content">
             <h2
               data-bind="
-                text: task_view.task.title,
-                attr: { contenteditable: task_view.edit },
-                css: { 'editing': task_view.edit }
+                text: task.title,
+                attr: { contenteditable: $parent.is_task_editable(task) },
+                css: { 'editing': $parent.is_task_editable(task) }
               "
               class="task-title">
             </h2>
             <p
               data-bind="
-                text: task_view.task.description,
-                attr: { contenteditable: task_view.edit },
-                css: { 'editing': task_view.edit }
+                text: task.description,
+                attr: { contenteditable: $parent.is_task_editable(task) },
+                css: { 'editing': $parent.is_task_editable(task) }
               "
               class="task-desc">
             </p>
           </div>
           <div class="task-button-container">
+            <select data-bind="
+              options: $parent.categories,
+              optionsText: 'name',
+              optionsValue: 'name',
+              value: $root.selected_category_name,
+              event: { change: $parent.move_to_category }
+            "></select>
             <button 
               class="edit-btn"
               data-bind="
                 click: $parent.save_task,
-                css: { 'editing': task_view.edit }
+                css: { 'editing': $parent.is_task_editable(task) }
               "
             >
-              <!-- ko ifnot: task_view.edit -->
+              <!-- ko ifnot: $parent.is_task_editable(task) -->
               Edit
               <!-- /ko -->
-              <!-- ko if: task_view.edit -->
+              <!-- ko if: $parent.is_task_editable(task) -->
               Save
               <!-- /ko -->
           </button>
