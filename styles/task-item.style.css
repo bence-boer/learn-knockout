@@ -1,6 +1,5 @@
 .task-item {
   background-color: #fff;
-  margin-bottom: 1rem;
   border-radius: 0.5rem;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
   height: 0;
@@ -20,6 +19,7 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      width: 100%;
 
       & .task-title {
         margin: 0;
@@ -53,18 +53,18 @@
       &.edit-btn {
         
         &.editing{
-          background-color: #bef95b;
+          background-color: #adc87f;
           color: white;
 
           &:hover {
-            background-color: #83ca07;
+            background-color: #79914f;
           }
         }
       }
 
       &.delete-btn {
         box-sizing: border-box;
-        background-color: #ff0d3e;
+        background-color: #9c8c70;
         color: white;
         border: none;
         padding: 10px 20px;

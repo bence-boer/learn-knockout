@@ -1,0 +1,28 @@
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    padding: 0 1rem;
+
+    & .category {
+        width: auto;
+        max-width: 8rem;
+
+        background-color: #A6A694;
+        color: white;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            background-color: #6f6f63;
+        }
+
+        &.selected{
+            background-color: #005B4B;
+        }
+    }
+}

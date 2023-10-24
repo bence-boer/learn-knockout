@@ -1,19 +1,23 @@
 @import 'styles/task-item.style.css';
 @import 'styles/header.style.css';
+@import 'styles/categories.style.css';
 
-p {
+*,
+*::before,
+*::after {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f3f4f6;
+  background-color: #ddddca;
 }
 
 button {
-  box-sizing: border-box;
   padding: 10px 20px;
 
   border-radius: 0.5rem;
@@ -33,14 +37,30 @@ input[type="checkbox"] {
   height: 1.2em;
   width: 1.2em;
   margin: 0;
+
+  &:checked {
+    accent-color: #888;
+  }
 }
 
-input[type="checkbox"]:checked {
-  accent-color: #888;
+select {
+  padding: 0 0.5rem;
+  border-radius: 0.5rem;
+  border: 2px solid #eee;
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0 auto 4rem;
   padding: 0 1rem;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
