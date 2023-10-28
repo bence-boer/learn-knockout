@@ -25,14 +25,14 @@
         margin: 0;
         padding-bottom: 0.5rem;
         font-size: 1.2rem;
-        border-bottom: 1px solid #888 ;
+        border-bottom: 1px solid #888;
       }
 
       & .task-desc {
         color: #333;
       }
 
-      & .editing{
+      & .editing {
         color: #666;
         font-style: italic;
       }
@@ -44,15 +44,16 @@
       justify-content: flex-end;
       width: 100%;
       gap: 0.4em;
-
-
     }
 
     & button {
-
       &.edit-btn {
-        
-        &.editing{
+        &:hover {
+          background-color: #A6A694;
+          color: white;
+        }
+
+        &.editing {
           background-color: #adc87f;
           color: white;
 
@@ -62,18 +63,21 @@
         }
       }
 
-      &.delete-btn {
-        box-sizing: border-box;
-        background-color: #9c8c70;
+      &.delete-btn:hover {
+        background-color: #c70a30;
         color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 0.5rem;
-        cursor: pointer;
+      }
 
-        &:hover {
-          background-color: #c70a30;
-        }
+      &.icon-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+
+        background-color: transparent;
       }
     }
   }

@@ -22,7 +22,7 @@ export default function AppViewModel() {
     this.next_category = ko.pureComputed(() => this.category_by_name(this.next_category_name()));
 
     /**
-     * Selected category.
+     * Selected category to display.
      * @type {ko.Observable<Category>}
      */
     this.selected_category = ko.observable(this.categories()[0]);
@@ -38,6 +38,12 @@ export default function AppViewModel() {
      * @type {ko.Observable<Task>}
      */
     this.next_task = ko.observable(new Task());
+
+    /**
+     * List of currently selected tasks.
+     * @type {ko.PureComputed<Task[]>}
+     */
+    this.selected_tasks = ko.pureComputed(() => this.selected_category().tasks());
 
     /**
      * List of task currently being edited.
@@ -157,9 +163,9 @@ export default function AppViewModel() {
         this.toggle_edit(task);
         if (this.is_task_editable(task)) return;
 
-        const texts_elements = event.target.parentElement.parentElement.children[0].children;
-        task.title = texts_elements[0].innerText;
-        task.description = texts_elements[1].innerText;
+        const task_item = event.target.closest('.task-item');
+        task.title = task_item.querySelector('.task-title').innerText;
+        task.description = task_item.querySelector('.task-desc').innerText;
 
         this.save();
     };
@@ -189,9 +195,12 @@ export default function AppViewModel() {
                 ({ title, description }) => new Task(title, description)
             ))
         ));
+        // TODO: string név alapján bindolni a categoryt
 
         this.subscriptions = [
-            this.autofill.subscribe(checked => this.next_task(this.create_new_task(checked)))
+            this.autofill.subscribe(checked => this.next_task(this.create_new_task(checked))),
+            this.selected_tasks.subscribe(console.log),
+            this.selected_category.subscribe(console.log)
         ];
     };
 

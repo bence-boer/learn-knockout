@@ -7,6 +7,7 @@
   <title>Task Manager</title>
   <script type="module" src="/main.js" defer></script>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
 </head>
 
 <body>
@@ -62,13 +63,16 @@
       </form>
     </header>
 
-    <div
-      class="categories"
-      data-bind="foreach: {
+    <div class="categories">
+      <input
+        type="text"
+        class="new-category"
+        placeholder="New"
+      >
+    <!-- ko foreach: {
         data: categories,
         as: 'category'
-      }"
-    >
+    }-->
       <button
         class="category"
         data-bind="
@@ -77,12 +81,13 @@
           css: { 'selected': $parent.selected_category() === category }
         "
       ></button>
+      <!-- /ko -->
     </div>
 
     <ul
       class="task-list"
       data-bind="foreach: {
-        data: selected_category().tasks,
+        data: selected_tasks,
         as: 'task',
         afterRender: appear,
         afterAdd: appear,
@@ -118,23 +123,20 @@
               event: { change: $parent.move_to_category }
             "></select>
             <button 
-              class="edit-btn"
+              class="edit-btn icon-button"
               data-bind="
                 click: $parent.save_task,
                 css: { 'editing': $parent.is_task_editable(task) }
               "
             >
-              <!-- ko ifnot: $parent.is_task_editable(task) -->
-              Edit
-              <!-- /ko -->
-              <!-- ko if: $parent.is_task_editable(task) -->
-              Save
-              <!-- /ko -->
+              <span data-bind="ifnot: $parent.is_task_editable(task)" class="material-symbols-outlined">edit</span>
+              <span data-bind="if: $parent.is_task_editable(task)" class="material-symbols-outlined">done</span>
           </button>
             <button 
-              class="delete-btn"
+              class="delete-btn icon-button"
               data-bind="click: $parent.remove_task"
-            >Delete</button>
+            ><span class="material-symbols-outlined">delete</span>
+          </button>
           </div>
           </div>
       </li>
