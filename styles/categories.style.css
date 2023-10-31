@@ -5,19 +5,52 @@
 
     padding: 0 1rem;
 
-    & input.new-category {
-        width: auto;
-        min-width: 2rem;
-        max-width: 8rem;
+    & form {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
 
-        background-color: #A6A694;
-        color: white;
+        & input.new-category, button.add {
+            width: 6rem;
+            height: 100%;
+            padding: 0.2rem 0.9rem;
+        }
 
-        border: none;
-        box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+        & input.new-category {
+            background-color: #A6A694;
+            color: white;
 
-        &:focus{
-            background-color: #6f6f63;
+            border: none;
+            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+
+            &:focus, &:focus-visible {
+                background-color: #C8C8B6;
+                outline: 2px solid #6F6F63;
+            }
+        }
+
+        & button.add {
+            background-color: #DDDDCA;
+            color: #6F6F63;
+
+            text-align: left;
+
+            &:hover {
+                background-color: #EDEDDA;
+            }
+        }
+
+        & button.remove {
+            height: 100%;
+            padding: 0.2rem 0.4rem;
+
+            background-color: transparent;
+            color: #6F6F63;
+
+            &:hover {
+                background-color: #c70a30;
+                color: white;
+              }
         }
     }
 
@@ -30,14 +63,15 @@
 
         overflow: hidden;
         text-overflow: ellipsis;
+        white-space: nowrap;
 
         box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
 
         &:hover {
-            background-color: #6f6f63;
+            background-color: #6F6F63;
         }
 
-        &.selected{
+        &.selected {
             background-color: #005B4B;
         }
     }
