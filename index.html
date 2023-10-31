@@ -13,6 +13,7 @@
 <body>
   <div class="container">
 
+    <!-- SECTION: CREATE TASK -->
     <header class="header">
       <form data-bind="submit: submit_task" class="form">
         <div class="form-header">
@@ -24,16 +25,15 @@
               data-bind="click: () => autofill(!autofill())"
             >
               <input
+                id="autofill"
                 name="autofill"
                 type="checkbox"
                 data-bind="checked: autofill"
               >
               <label for="autofill">Autofill</label>
             </button>
-            <select data-bind="
+            <select name="category" data-bind="
               options: categories,
-              optionsText: 'name',
-              optionsValue: 'name',
               value: next_category_name
             "></select>    
             <button type="submit" class="add-btn">+</button>
@@ -62,28 +62,54 @@
         ></textarea>
       </form>
     </header>
+    <!-- SECTION: CREATE TASK -->
 
+    <!-- SECTION: CATEGORIES -->
     <div class="categories">
-      <input
-        type="text"
-        class="new-category"
-        placeholder="New"
-      >
-    <!-- ko foreach: {
-        data: categories,
+      <!-- ko foreach: {
+        data: category_names,
         as: 'category'
     }-->
+    <button
+      class="category"
+      data-bind="
+        text: category,
+        click: $parent.select_category,
+        css: { 'selected': category === $parent.selected_category_name() }
+      "
+    ></button>
+    <!-- /ko -->
+    <form data-bind="submit: add_category">
+      <button 
+        class="icon-button remove"
+        type="button"
+        data-bind="click: remove_selected_category"
+        ><span class="material-symbols-outlined">delete</span>
+      </button>
+      <!-- ko ifnot: input_focused -->
       <button
-        class="category"
-        data-bind="
-          text: category.name,
-          click: $parent.select_category,
-          css: { 'selected': $parent.selected_category() === category }
-        "
-      ></button>
+        class="add"
+        type="button"
+        data-bind="click: focus_input"
+      >Category +</button>
       <!-- /ko -->
+      <!-- ko if: input_focused -->
+      <input
+        name="category"
+        type="text"
+        class="new-category"
+        autocomplete="off"
+        data-bind="
+          hasFocus: input_focused,
+          blur: focus_input
+        "
+      >
+      <!-- /ko -->
+    </form>
     </div>
+    <!-- SECTION END: CATEGORIES -->
 
+    <!-- SECTION: TASKS -->
     <ul
       class="task-list"
       data-bind="foreach: {
@@ -115,12 +141,12 @@
             </p>
           </div>
           <div class="task-button-container">
-            <select data-bind="
-              options: $parent.categories,
-              optionsText: 'name',
-              optionsValue: 'name',
-              value: $root.selected_category_name,
-              event: { change: $parent.move_to_category }
+            <select
+              name="category"
+              data-bind="
+                options: $parent.categories,
+                value: $root.selected_category_name(),
+                event: { change: $parent.move_to_category }
             "></select>
             <button 
               class="edit-btn icon-button"
@@ -131,7 +157,7 @@
             >
               <span data-bind="ifnot: $parent.is_task_editable(task)" class="material-symbols-outlined">edit</span>
               <span data-bind="if: $parent.is_task_editable(task)" class="material-symbols-outlined">done</span>
-          </button>
+            </button>
             <button 
               class="delete-btn icon-button"
               data-bind="click: $parent.remove_task"
@@ -141,6 +167,7 @@
           </div>
       </li>
     </ul>
+    <!-- SECTION END: TASKS -->
   </div>
 </body>
 

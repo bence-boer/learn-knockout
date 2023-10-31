@@ -13,8 +13,8 @@ export class Task {
 
     /**
      * Constructs a new task.
-     * @param {string | undefined} title Title of the task (an empty string by default).
-     * @param {string | undefined} description Description of the task (an empty string by default).
+     * @param {string} [title = ''] Title of the task (an empty string by default).
+     * @param {string} [description = ''] Description of the task (an empty string by default).
      */
     constructor(
         title = '',
